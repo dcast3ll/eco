@@ -2,8 +2,8 @@
 
 > Archivo de continuidad. Si retomás el proyecto después de un tiempo, leé esto primero.
 >
-> **Última actualización:** 20 de octubre de 2026
-> **Estado:** completado y listo para despliegue.
+> **Última actualización:** 21 de octubre de 2026
+> **Estado:** desplegado en producción en Vercel.
 
 ---
 
@@ -106,14 +106,24 @@ src/
 
 - [ ] **Conectar el formulario** a un backend o servicio (Formspree, Netlify Forms, Resend…).
 - [ ] **Silenciar el aviso de build** de `astro-icon`: busca `src/icons` y no existe. Se resuelve creando `src/icons/.gitkeep`. No afecta el resultado.
-- [ ] **Inicializar git.** El proyecto aún no es un repositorio, así que no hay historial ni rama para desplegar.
-- [ ] **Elegir destino de despliegue** (Netlify, Vercel, Cloudflare Pages o hosting estático propio).
+- [x] **Inicializar git.** Repositorio creado y publicado en GitHub.
+- [x] **Elegir destino de despliegue.** Desplegado en Vercel con auto-deploy desde `main`.
 - [ ] **Reemplazar imágenes de referencia** por fotos reales del producto y precios definitivos.
 
 ---
 
-## 9. Próximo paso sugerido
+## 9. Repositorio y despliegue (21 de octubre de 2026)
 
-Inicializar el repositorio y desplegar el `dist/` actual para tener una URL de preview; después decidir si el formulario se conecta a un servicio o queda como maqueta.
+- **Git/GitHub:** repo creado con rama `main` y publicado en https://github.com/dcast3ll/eco.git (commit inicial `bb235d2`).
+- **Vercel:** proyecto `eco` en el equipo `menda-team`; producción en https://eco-iota-rust.vercel.app.
+- **Auto-deploy:** cada push a `main` despliega solo (verificado con el commit vacío `a6e7967`).
+- `vercel.json` fija `framework: astro` y `outputDirectory: dist`; sin él el build habría publicado `public/`. Es la fuente de verdad: no cambiar esos ajustes en el dashboard.
+- `.gitignore` excluye `.vercel/` y `.env*` (el CLI crea `.env.local` con un token OIDC).
+
+---
+
+## 10. Próximo paso sugerido
+
+Decidir si el formulario se conecta a un servicio real o queda como maqueta; el resto del sitio ya está publicado con auto-deploy.
 
 Para el detalle funcional completo, ver `SPECIFICATIONS.md` → sección **Estado Actual del Desarrollo**.
