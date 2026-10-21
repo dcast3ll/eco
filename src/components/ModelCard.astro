@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import Button from './ui/Button.astro';
+import type { Model } from '../data/site';
+
+interface Props {
+  model: Model;
+}
+
+const { model } = Astro.props;
+---
+
+<article
+  class="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface-raised shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-graphite-900/5 dark:hover:shadow-black/30"
+>
+  <div class="relative">
+    <Image
+      src={model.image}
+      alt={model.imageAlt}
+      widths={[480, 720, 960]}
+      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+      loading="lazy"
+      class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+    />
+    <span
+      class="absolute left-4 top-4 rounded-full bg-graphite-900/80 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50 backdrop-blur"
+    >
+      {model.size}
+    </span>
+    {
+      model.featured && (
+        <span class="absolute right-4 top-4 rounded-full bg-terracotta-700 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50">
+          Más elegido
+        </span>
+      )
+    }
+  </div>
+
+  <div class="flex flex-1 flex-col p-6">
+    <div class="flex items-baseline justify-between gap-3">
+      <h3 class="font-display text-xl font-semibold text-ink">{model.name}</h3>
+      <span class="text-sm font-medium text-ink-subtle">{model.area}</span>
+    </div>
+
+    <p class="mt-2 text-sm leading-relaxed text-ink-muted">{model.summary}</p>
+
+    <dl class="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-y border-line py-4 text-sm text-ink-muted">
+      {
+        model.specs.map((spec) => (
+          <div class="flex items-center gap-1.5">
+            <Icon name={spec.icon} class="size-4 text-link" aria-hidden="true" />
+            <dt class="sr-only">Incluye</dt>
+            <dd>{spec.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul class="mt-4 space-y-2 text-sm text-ink-muted">
+      {
+        model.highlights.map((item) => (
+          <li class="flex items-start gap-2">
+            <Icon name="lucide:shield-check" class="mt-0.5 size-4 shrink-0 text-link" aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-auto flex items-end justify-between gap-4 pt-6">
+      <div>
+        <p class="text-xs uppercase tracking-wider text-ink-subtle">Precio de referencia</p>
+        <p class="whitespace-nowrap font-display text-2xl font-semibold text-link">{model.priceFrom}</p>
+      </div>
+      <Button href="#contacto" variant="secondary" icon="lucide:arrow-right">Cotizar</Button>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,150 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from './ui/Button.astro';
+import { interestOptions } from '../data/site';
+
+const fieldClass =
+  'mt-1.5 w-full rounded-xl border border-line bg-surface-muted px-4 py-3 text-sm text-ink placeholder:text-ink-subtle transition-colors focus:border-olive-500 focus:outline-none focus:ring-2 focus:ring-olive-500/20';
+const labelClass = 'block text-sm font-medium text-ink-muted';
+---
+
+<form data-contact-form class="grid gap-5" novalidate={false}>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="nombre" class={labelClass}>Nombre completo</label>
+      <input
+        id="nombre"
+        name="nombre"
+        type="text"
+        autocomplete="name"
+        required
+        placeholder="Ana Martínez"
+        class={fieldClass}
+      />
+    </div>
+    <div>
+      <label for="email" class={labelClass}>Correo electrónico</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        placeholder="ana@correo.com"
+        class={fieldClass}
+      />
+    </div>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="telefono" class={labelClass}>Teléfono</label>
+      <input
+        id="telefono"
+        name="telefono"
+        type="tel"
+        autocomplete="tel"
+        required
+        placeholder="+52 55 0000 0000"
+        class={fieldClass}
+      />
+    </div>
+    <div>
+      <label for="modelo" class={labelClass}>Modelo de interés</label>
+      <select id="modelo" name="modelo" required class={fieldClass}>
+        <option value="" selected disabled>Selecciona un modelo</option>
+        {interestOptions.map((option) => <option value={option}>{option}</option>)}
+        <option value="Aún no lo sé">Aún no lo sé</option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label for="mensaje" class={labelClass}>Cuéntanos sobre tu proyecto</label>
+    <textarea
+      id="mensaje"
+      name="mensaje"
+      rows="4"
+      required
+      placeholder="Ubicación del terreno, tamaño, plazo estimado…"
+      class={fieldClass}></textarea>
+  </div>
+
+  <div class="flex items-start gap-3">
+    <input
+      id="privacidad"
+      name="privacidad"
+      type="checkbox"
+      required
+      class="mt-1 size-4 rounded border-line-strong text-olive-600 focus:ring-olive-500/30"
+    />
+    <label for="privacidad" class="text-xs leading-relaxed text-ink-subtle">
+      Acepto que EcoContainers me contacte para dar seguimiento a esta solicitud. No compartimos
+      tus datos con terceros.
+    </label>
+  </div>
+
+  <Button type="submit" size="lg" icon="lucide:send" iconPosition="left" class="w-full">
+    Enviar solicitud
+  </Button>
+
+  <p class="text-center text-xs text-ink-subtle">
+    Respuesta en menos de 24 horas hábiles. Sin compromiso.
+  </p>
+</form>
+
+<div
+  data-contact-success
+  hidden
+  tabindex="-1"
+  class="rounded-3xl border border-accent-line bg-accent-soft p-8 text-center"
+>
+  <span class="mx-auto grid size-14 place-items-center rounded-full bg-olive-600 text-cream-50">
+    <Icon name="lucide:check" class="size-7" aria-hidden="true" />
+  </span>
+  <h3 class="mt-5 font-display text-2xl font-semibold text-ink">
+    ¡Gracias, <span data-success-name>vecino</span>!
+  </h3>
+  <p class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-muted">
+    Recibimos tu solicitud. Un asesor de EcoContainers se pondrá en contacto contigo en menos de
+    24 horas hábiles.
+  </p>
+  <button
+    type="button"
+    data-contact-reset
+    class="mt-6 text-sm font-semibold text-link underline-offset-4 hover:text-link-hover hover:underline"
+  >
+    Enviar otra consulta
+  </button>
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const success = document.querySelector<HTMLElement>('[data-contact-success]');
+  const nameSlot = document.querySelector<HTMLElement>('[data-success-name]');
+  const resetButton = document.querySelector<HTMLButtonElement>('[data-contact-reset]');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const fullName = String(new FormData(form).get('nombre') ?? '').trim();
+    const firstName = fullName.split(/\s+/)[0];
+
+    if (nameSlot && firstName) nameSlot.textContent = firstName;
+    form.hidden = true;
+
+    if (success) {
+      success.hidden = false;
+      success.focus();
+    }
+  });
+
+  resetButton?.addEventListener('click', () => {
+    form?.reset();
+    if (success) success.hidden = true;
+    if (form) {
+      form.hidden = false;
+      form.querySelector<HTMLInputElement>('input')?.focus();
+    }
+  });
+</script>

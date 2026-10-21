@@ -1,0 +1,91 @@
+---
+import { Icon } from 'astro-icon/components';
+import Container from './ui/Container.astro';
+import Button from './ui/Button.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { navLinks, site } from '../data/site';
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur-md">
+  <Container>
+    <div class="flex h-16 items-center justify-between gap-4 lg:h-20">
+      <a href="#inicio" class="flex items-center gap-3" aria-label={`${site.name} — inicio`}>
+        <span class="relative grid size-10 place-items-center rounded-xl bg-olive-600 text-cream-50">
+          <Icon name="lucide:container" class="size-5" aria-hidden="true" />
+          <Icon
+            name="lucide:leaf"
+            class="absolute -right-1.5 -top-1.5 size-4 rounded-full bg-cream-50 p-0.5 text-olive-700"
+            aria-hidden="true"
+          />
+        </span>
+        <span class="leading-tight">
+          <span class="block font-display text-lg font-semibold tracking-tight text-ink">
+            {site.name}
+          </span>
+          <span class="hidden text-[0.7rem] uppercase tracking-[0.18em] text-ink-subtle sm:block">
+            {site.tagline}
+          </span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 lg:flex" aria-label="Navegación principal">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm font-medium text-ink-muted transition-colors hover:text-link"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <ThemeToggle />
+        <div class="hidden lg:block">
+          <Button href="#contacto" icon="lucide:arrow-right">Cotizar mi Casa</Button>
+        </div>
+
+        <details class="group relative lg:hidden">
+          <summary
+            class="grid size-10 cursor-pointer list-none place-items-center rounded-xl border border-line bg-surface-raised text-ink-muted transition-colors hover:border-accent-line hover:text-link [&::-webkit-details-marker]:hidden"
+            aria-label="Abrir menú de navegación"
+          >
+            <Icon name="lucide:menu" class="size-5 group-open:hidden" aria-hidden="true" />
+            <Icon name="lucide:x" class="hidden size-5 group-open:block" aria-hidden="true" />
+          </summary>
+
+          <div
+            class="absolute right-0 mt-3 w-64 overflow-hidden rounded-2xl border border-line bg-surface-raised shadow-xl shadow-graphite-900/10 dark:shadow-black/40"
+          >
+            <nav class="flex flex-col p-2" aria-label="Navegación móvil">
+              {
+                navLinks.map((link) => (
+                  <a
+                    href={link.href}
+                    class="rounded-xl px-4 py-3 text-sm font-medium text-ink-muted transition-colors hover:bg-accent-soft hover:text-link"
+                  >
+                    {link.label}
+                  </a>
+                ))
+              }
+            </nav>
+            <div class="border-t border-line p-2">
+              <Button href="#contacto" class="w-full">Cotizar mi Casa</Button>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </Container>
+</header>
+
+<script>
+  document.querySelectorAll<HTMLDetailsElement>('header details').forEach((details) => {
+    details.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      if (target.closest('a')) details.open = false;
+    });
+  });
+</script>

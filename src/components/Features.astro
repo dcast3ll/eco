@@ -1,0 +1,36 @@
+---
+import Container from './ui/Container.astro';
+import Section from './ui/Section.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import FeatureCard from './FeatureCard.astro';
+import { features } from '../data/site';
+---
+
+<Section id="caracteristicas" background="white">
+  <Container>
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        eyebrow="Características Eco"
+        title="Menos consumo, más independencia"
+        description="Cada vivienda se entrega con la infraestructura necesaria para vivir cómodamente desde el primer día."
+      />
+      <p class="max-w-xs text-sm leading-relaxed text-ink-subtle lg:text-right">
+        Energía, agua y confort pensados para terrenos urbanos y rurales.
+        <span class="mt-2 block font-medium text-link">Incluido en todos los modelos.</span>
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        features.map((feature, index) => (
+          <FeatureCard
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+            index={index + 1}
+          />
+        ))
+      }
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,30 @@
+---
+import Container from './ui/Container.astro';
+import Section from './ui/Section.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import ModelCard from './ModelCard.astro';
+import { models } from '../data/site';
+---
+
+<Section id="modelos">
+  <Container>
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        eyebrow="Modelos y precios"
+        title="Tres formas de empezar tu casa"
+        description="Elige el punto de partida. Todos los modelos son personalizables en distribución, acabados y equipamiento."
+      />
+      <p class="max-w-xs text-sm leading-relaxed text-ink-subtle lg:text-right">
+        Precios de referencia sin transporte ni permisos. Cotiza según tu terreno y ubicación.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {models.map((model) => <ModelCard model={model} />)}
+    </div>
+
+    <p class="mt-8 text-center text-xs text-ink-subtle">
+      Imágenes de referencia. La distribución y los acabados se ajustan a cada proyecto.
+    </p>
+  </Container>
+</Section>

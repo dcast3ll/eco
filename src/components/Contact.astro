@@ -1,0 +1,96 @@
+---
+import { Icon } from 'astro-icon/components';
+import Container from './ui/Container.astro';
+import Section from './ui/Section.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import ContactForm from './ContactForm.astro';
+import { site } from '../data/site';
+
+const contactItems = [
+  { icon: 'lucide:phone', label: 'Teléfono', value: site.phone, href: site.phoneHref },
+  { icon: 'lucide:mail', label: 'Correo', value: site.email, href: `mailto:${site.email}` },
+  { icon: 'lucide:map-pin', label: 'Oficinas', value: site.address },
+  { icon: 'lucide:calendar', label: 'Horario', value: site.hours },
+];
+
+const visitIncludes = [
+  'Visita sin costo a tu terreno',
+  'Propuesta de distribución a medida',
+  'Cotización detallada en 48 horas',
+];
+---
+
+<Section id="contacto">
+  <Container>
+    <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div>
+        <SectionHeading
+          eyebrow="Cotiza tu casa"
+          title="Conversemos sobre tu terreno"
+          description="Cuéntanos qué tienes en mente y te ayudamos a elegir el modelo que mejor se adapta a tu espacio y presupuesto."
+        />
+
+        <ul class="mt-8 space-y-3">
+          {
+            visitIncludes.map((item) => (
+              <li class="flex items-start gap-3 text-sm text-ink-muted">
+                <span class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent-soft text-link">
+                  <Icon name="lucide:check" class="size-3.5" aria-hidden="true" />
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+
+        <dl class="mt-10 grid gap-5 sm:grid-cols-2">
+          {
+            contactItems.map((item) => (
+              <div class="flex items-start gap-3">
+                <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-surface-raised text-link ring-1 ring-line">
+                  <Icon name={item.icon} class="size-5" aria-hidden="true" />
+                </span>
+                <div class="min-w-0">
+                  <dt class="text-xs uppercase tracking-wider text-ink-subtle">{item.label}</dt>
+                  <dd class="mt-0.5 text-sm font-medium text-ink">
+                    {item.href ? (
+                      <a href={item.href} class="break-words hover:text-link">
+                        {item.value}
+                      </a>
+                    ) : (
+                      item.value
+                    )}
+                  </dd>
+                </div>
+              </div>
+            ))
+          }
+        </dl>
+
+        <div class="mt-8 flex items-center gap-3">
+          {
+            site.socials.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                class="grid size-10 place-items-center rounded-full border border-line bg-surface-raised text-ink-muted transition-colors hover:border-accent-line hover:text-link"
+              >
+                <Icon name={social.icon} class="size-4" aria-hidden="true" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="rounded-[2rem] border border-line bg-surface-raised p-6 shadow-xl shadow-graphite-900/5 sm:p-8 dark:shadow-black/30">
+        <h3 class="font-display text-2xl font-semibold text-ink">Solicita tu cotización</h3>
+        <p class="mt-1 text-sm text-ink-muted">Completa el formulario y te contactamos.</p>
+        <div class="mt-6">
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>

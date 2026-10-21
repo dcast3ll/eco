@@ -1,0 +1,107 @@
+---
+import { Icon } from 'astro-icon/components';
+import Container from './ui/Container.astro';
+import { models, navLinks, site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-auto bg-footer text-footer-ink">
+  <Container>
+    <div class="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+      <div>
+        <a href="#inicio" class="flex items-center gap-3" aria-label={`${site.name} — inicio`}>
+          <span class="relative grid size-10 place-items-center rounded-xl bg-olive-600 text-cream-50">
+            <Icon name="lucide:container" class="size-5" aria-hidden="true" />
+            <Icon
+              name="lucide:leaf"
+              class="absolute -right-1.5 -top-1.5 size-4 rounded-full bg-footer p-0.5 text-olive-300"
+              aria-hidden="true"
+            />
+          </span>
+          <span class="font-display text-lg font-semibold tracking-tight text-cream-50">
+            {site.name}
+          </span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-footer-ink-subtle">
+          Viviendas modulares en contenedores marítimos reciclados. Diseño moderno, energía solar
+          y reserva de agua para vivir con independencia.
+        </p>
+        <div class="mt-5 flex items-center gap-2">
+          {
+            site.socials.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                class="grid size-9 place-items-center rounded-full bg-footer-raised text-footer-ink-subtle transition-colors hover:bg-olive-600 hover:text-cream-50"
+              >
+                <Icon name={social.icon} class="size-4" aria-hidden="true" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <nav aria-label="Enlaces del sitio">
+        <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-cream-50">Navegación</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a href={link.href} class="text-footer-ink-subtle transition-colors hover:text-cream-50">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Modelos">
+        <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-cream-50">Modelos</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            models.map((model) => (
+              <li>
+                <a href="#modelos" class="text-footer-ink-subtle transition-colors hover:text-cream-50">
+                  {model.name} · {model.size}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-cream-50">Contacto</h2>
+        <ul class="mt-4 space-y-3 text-sm text-footer-ink-subtle">
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:phone" class="mt-0.5 size-4 shrink-0 text-olive-400" aria-hidden="true" />
+            <a href={site.phoneHref} class="hover:text-cream-50">{site.phone}</a>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:mail" class="mt-0.5 size-4 shrink-0 text-olive-400" aria-hidden="true" />
+            <a href={`mailto:${site.email}`} class="break-all hover:text-cream-50">{site.email}</a>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:map-pin" class="mt-0.5 size-4 shrink-0 text-olive-400" aria-hidden="true" />
+            <span>{site.address}</span>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:calendar" class="mt-0.5 size-4 shrink-0 text-olive-400" aria-hidden="true" />
+            <span>{site.hours}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col gap-2 border-t border-footer-raised py-6 text-xs text-footer-ink-subtle sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. Todos los derechos reservados.</p>
+      <p>Imágenes de referencia. Precios sujetos a ubicación y acabados.</p>
+    </div>
+  </Container>
+</footer>

@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+
+  --color-olive-50: #f2f7f0;
+  --color-olive-100: #e0ecd9;
+  --color-olive-200: #c2d9b8;
+  --color-olive-300: #9cbf8c;
+  --color-olive-400: #74a263;
+  --color-olive-500: #4f8244;
+  --color-olive-600: #2d5a27;
+  --color-olive-700: #254a20;
+  --color-olive-800: #1d3a1a;
+  --color-olive-900: #152a13;
+
+  --color-terracotta-50: #fbf3ee;
+  --color-terracotta-100: #f5e2d6;
+  --color-terracotta-200: #eac2ac;
+  --color-terracotta-300: #dda07e;
+  --color-terracotta-400: #d18d68;
+  --color-terracotta-500: #c87d55;
+  --color-terracotta-600: #b06340;
+  --color-terracotta-700: #8f4e33;
+  --color-terracotta-800: #6f3c28;
+  --color-terracotta-900: #552e1f;
+
+  --color-graphite-50: #f6f7f9;
+  --color-graphite-100: #eceef2;
+  --color-graphite-200: #d5dae3;
+  --color-graphite-300: #b0bac9;
+  --color-graphite-400: #8494a9;
+  --color-graphite-500: #64748b;
+  --color-graphite-600: #475569;
+  --color-graphite-700: #334155;
+  --color-graphite-800: #1e293b;
+  --color-graphite-900: #0f172a;
+
+  --color-cream-50: #ffffff;
+  --color-cream-100: #f8fafc;
+  --color-cream-200: #eef2f6;
+  --color-cream-300: #e2e8f0;
+}
+
+/* Semantic tokens. They flip with the `.dark` class on <html>. */
+:root {
+  color-scheme: light;
+
+  --surface: #f8fafc;
+  --surface-raised: #ffffff;
+  --surface-muted: #eef2f6;
+
+  --ink: #0f172a;
+  --ink-muted: #475569;
+  --ink-subtle: #64748b;
+
+  --line: #d5dae3;
+  --line-strong: #b0bac9;
+
+  --link: #254a20;
+  --link-hover: #1d3a1a;
+  --accent-soft: #f2f7f0;
+  --accent-line: #c2d9b8;
+
+  --footer: #1e293b;
+  --footer-raised: #334155;
+  --footer-ink: #cbd5e1;
+  --footer-ink-subtle: #94a3b8;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --surface: #0b1220;
+  --surface-raised: #162033;
+  --surface-muted: #1e293b;
+
+  --ink: #f1f5f9;
+  --ink-muted: #cbd5e1;
+  --ink-subtle: #94a3b8;
+
+  --line: #2a3850;
+  --line-strong: #3b4a63;
+
+  --link: #9cbf8c;
+  --link-hover: #c2d9b8;
+  --accent-soft: #1d3a1a;
+  --accent-line: #2d5a27;
+
+  --footer: #060b14;
+  --footer-raised: #162033;
+  --footer-ink: #cbd5e1;
+  --footer-ink-subtle: #94a3b8;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-muted: var(--surface-muted);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+
+  --color-footer: var(--footer);
+  --color-footer-raised: var(--footer-raised);
+  --color-footer-ink: var(--footer-ink);
+  --color-footer-ink-subtle: var(--footer-ink-subtle);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-surface font-sans text-ink antialiased;
+  }
+
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  ::selection {
+    @apply bg-olive-600 text-cream-50;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta-500);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .prose-measure {
+    @apply max-w-prose text-ink-muted;
+  }
+}

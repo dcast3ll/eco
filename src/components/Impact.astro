@@ -1,0 +1,71 @@
+---
+import { Icon } from 'astro-icon/components';
+import Container from './ui/Container.astro';
+import Section from './ui/Section.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import { metrics, testimonials } from '../data/site';
+---
+
+<Section id="impacto" background="olive" class="relative overflow-hidden">
+  <div
+    class="pointer-events-none absolute -right-32 top-0 size-96 rounded-full bg-olive-500/30 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -bottom-40 -left-24 size-80 rounded-full bg-terracotta-500/20 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container class="relative">
+    <SectionHeading
+      eyebrow="Impacto ecológico"
+      title="Cada casa evita residuos y ahorra recursos"
+      description="Reutilizamos contenedores marítimos en desuso y los convertimos en viviendas eficientes. Esto es lo que hemos logrado junto a nuestras familias."
+      tone="light"
+      align="center"
+    />
+
+    <dl class="mt-12 grid gap-8 border-y border-olive-500/50 py-10 sm:grid-cols-3">
+      {
+        metrics.map((metric) => (
+          <div class="text-center">
+            <span class="mx-auto grid size-12 place-items-center rounded-2xl bg-cream-50/10 text-terracotta-300">
+              <Icon name={metric.icon} class="size-6" aria-hidden="true" />
+            </span>
+            <dd class="mt-4 font-display text-4xl font-semibold tracking-tight text-cream-50 sm:text-5xl">
+              {metric.value}
+            </dd>
+            <dt class="mt-2 text-sm text-olive-100">{metric.label}</dt>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        testimonials.map((testimonial) => (
+          <figure class="flex h-full flex-col rounded-3xl border border-olive-500/40 bg-olive-800/60 p-6">
+            <div class="flex gap-0.5 text-terracotta-300" aria-label="Calificación: 5 de 5">
+              {Array.from({ length: 5 }).map(() => (
+                <Icon name="lucide:star" class="size-4" aria-hidden="true" />
+              ))}
+            </div>
+            <blockquote class="mt-4 flex-1 text-sm leading-relaxed text-cream-100">
+              “{testimonial.quote}”
+            </blockquote>
+            <figcaption class="mt-5 border-t border-olive-500/40 pt-4">
+              <p class="text-sm font-semibold text-cream-50">{testimonial.author}</p>
+              <p class="text-xs text-olive-200">{testimonial.location}</p>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-center text-xs text-olive-200">
+      Datos acumulados de proyectos entregados entre 2021 y 2025.
+    </p>
+  </Container>
+</Section>

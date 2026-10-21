@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import Models from '../components/Models.astro';
+import Impact from '../components/Impact.astro';
+import FAQ from '../components/FAQ.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="main" class="flex-1">
+    <Hero />
+    <Features />
+    <Models />
+    <Impact />
+    <FAQ />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>
